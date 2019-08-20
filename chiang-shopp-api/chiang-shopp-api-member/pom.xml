@@ -2,12 +2,8 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>com.chiang</groupId>
-    <artifactId>chiang-shopp-parent</artifactId>
+    <artifactId>chiang-shopp-api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <artifactId>chiang-shopp-api</artifactId>
-  <packaging>pom</packaging>
-  <modules>
-  	<module>chiang-shopp-api-member</module>
-  </modules>
+  <artifactId>chiang-shopp-api-member</artifactId>
 </project>
