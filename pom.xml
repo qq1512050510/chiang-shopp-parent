@@ -151,5 +151,6 @@
 		<module>chiang-shopp-eurekaserver</module>
 		<module>chiang-shopp-common</module>
 		<module>chiang-shopp-api</module>
+		<module>chiang-shopp-member</module>
 	</modules>
 </project>

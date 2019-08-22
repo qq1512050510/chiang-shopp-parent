@@ -1,0 +1,10 @@
+server:
+  port: 8762
+#  context-path: /member
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+spring:
+  application:
+    name: member
