@@ -1,8 +1,10 @@
 package com.chiang.base;
 
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 
 @Data
+@Slf4j
 public class ResponseBase {
 	private Integer rtnCode;
 	private String msg;
@@ -15,6 +17,7 @@ public class ResponseBase {
 		this.rtnCode = rtnCode;
 		this.msg = msg;
 		this.obj = obj;
+		log.info("构造函数");
 	}
 	
 }
