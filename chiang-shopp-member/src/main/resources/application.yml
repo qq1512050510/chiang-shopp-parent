@@ -20,7 +20,7 @@ spring:
   #数据库连接信息
   datasource:
         name: test
-        url: jdbc:mysql://127.0.0.1:3306/shopping-member
+        url: jdbc:mysql://127.0.0.1:3306/shopping-member?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&characterEncoding=UTF-8&useSSL=true 
         username: root
         password: success
         # 使用druid数据源

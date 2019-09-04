@@ -152,5 +152,6 @@
 		<module>chiang-shopp-common</module>
 		<module>chiang-shopp-api</module>
 		<module>chiang-shopp-member</module>
+		<module>chiang-shopp-message</module>
 	</modules>
 </project>
