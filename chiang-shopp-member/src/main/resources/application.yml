@@ -39,4 +39,17 @@ spring:
         testOnReturn: false
         poolPreparedStatements: true
         maxOpenPreparedStatements: 20
+##activemq连接信息
+  activemq:
+    broker-url: tcp://localhost:61616
+    in-memory: true
+    pool:
+      enabled: false
+########################################
+
+MESSAGESQUEUE: message_queue
+
+##队列      
+messages:
+  queue: messages_queue
 

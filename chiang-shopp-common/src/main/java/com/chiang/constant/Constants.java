@@ -15,5 +15,11 @@ public interface Constants {
 	Integer HTTP_RES_CODE_200 = 200;
 	// 系统错误
 	Integer HTTP_RES_CODE_500 = 500;
+	
+	String SMS_MAIL = "email";
+	
+	String MSG_SMS = "email";
+
+	String MSG_EMAIL = "email";
 
 }
