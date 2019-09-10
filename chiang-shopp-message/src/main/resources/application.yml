@@ -21,7 +21,7 @@ spring:
     #mailPort=465
     port: 587
     username: jyp.beijing@qq.com
-    password: bwzbsobchzpabdaf_yy
+    password: bwzbsobchzpabdaf
     default-encoding: UTF-8
     enable: true
     smtp: 
