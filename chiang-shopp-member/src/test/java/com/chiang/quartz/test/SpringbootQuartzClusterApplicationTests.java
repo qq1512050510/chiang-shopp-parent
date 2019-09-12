@@ -28,6 +28,7 @@ public class SpringbootQuartzClusterApplicationTests {
     public void deleteJob() {
     	log.warn("测试开始");
     	//jobService.addAsyncJob("异步任务Title5", "异步任务Content");
+    	jobService.deleteJob("job2", "test_job");
     	jobService.deleteJob("test", "123");
     	System.out.println("test");
     }

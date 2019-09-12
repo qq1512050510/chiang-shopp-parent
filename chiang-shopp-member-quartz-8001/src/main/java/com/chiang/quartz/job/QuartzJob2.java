@@ -1,4 +1,4 @@
-package com.chiang.quartz.jobs;
+package com.chiang.quartz.job;
 
 import java.util.Date;
 
