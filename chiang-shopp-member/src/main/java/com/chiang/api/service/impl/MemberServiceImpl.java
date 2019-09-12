@@ -84,4 +84,29 @@ public class MemberServiceImpl extends BaseApiService implements MemberService {
 		registerMailboxProducer.sendMsg(activeMQQueue, json);
 	}
 
+	@Override
+	public ResponseBase login(UserEntity user) {
+		//1、验证参数
+		String username = user.getUsername();
+		if(StringUtils.isEmpty(username)) {
+			return setResultError("用户名不能为空！");
+		}
+		String password = user.getPassword();
+		if(StringUtils.isEmpty(password)) {
+			return setResultError("密码不能为空！");
+			
+		}
+		String newPassword = MD5Util.MD5(password);
+		//2、数据库查找账号密码是否正确
+		UserEntity userEntity = memberDao.login(username,newPassword);
+		if(userEntity==null) {
+			return setResultError("账号或者密码不正确！");
+		}
+		//3、如果账号正确，对应生成token
+		
+		//4、存放redis中，key为token value为userid
+		//5、直接返回token
+		return null;
+	}
+
 }

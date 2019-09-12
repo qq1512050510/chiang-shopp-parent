@@ -31,7 +31,7 @@ public class ApplicationRunnerImpl implements ApplicationRunner {
             System.out.print(arg + " ");
         }
         System.out.println("---");
-        jobService.runJobTimes();
+        //jobService.runJobTimes();
         System.out.println("---");
     }
 }

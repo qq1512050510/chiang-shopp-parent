@@ -21,5 +21,7 @@ public interface Constants {
 	String MSG_SMS = "email";
 
 	String MSG_EMAIL = "email";
+	//会员token
+	String TOKEN_MEMBER = "";
 
 }

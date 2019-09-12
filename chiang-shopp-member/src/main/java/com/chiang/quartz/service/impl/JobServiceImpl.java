@@ -173,7 +173,7 @@ public class JobServiceImpl implements JobService {
 
                 //按新的cronExpression表达式构建一个新的trigger
                 trigger = TriggerBuilder.newTrigger().withIdentity("test" + "_trigger", "123" + "_trigger")
-                        .withSchedule(scheduleBuilder.withMisfireHandlingInstructionFireAndProceed()).startNow().build();
+                        .withSchedule(scheduleBuilder.withMisfireHandlingInstructionIgnoreMisfires()).build();
                 scheduler.scheduleJob(jobDetail, trigger);
             }else {
                 /*TriggerKey triggerKey = TriggerKey.triggerKey("test" + "_trigger", "123" + "_trigger");
@@ -187,7 +187,7 @@ public class JobServiceImpl implements JobService {
             	
       
             	// 按新的cronExpression表达式重新构建trigger
-            	trigger = trigger.getTriggerBuilder().withIdentity(triggerKey).withSchedule(scheduleBuilder.withMisfireHandlingInstructionFireAndProceed()).startNow().build();
+            	trigger = trigger.getTriggerBuilder().withIdentity(triggerKey).withSchedule(scheduleBuilder.withMisfireHandlingInstructionIgnoreMisfires()).startNow().build();
             	System.out.println("trigger.getMisfireInstruction() = "+trigger.getMisfireInstruction());
             	// 按新的trigger重新设置job执行
             	scheduler.rescheduleJob(triggerKey, trigger);

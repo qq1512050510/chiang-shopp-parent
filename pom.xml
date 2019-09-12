@@ -153,6 +153,6 @@
 		<module>chiang-shopp-api</module>
 		<module>chiang-shopp-member</module>
 		<module>chiang-shopp-message</module>
-		<module>chiang-shopp-quartz-member-8001</module>
+		<module>chiang-shopp-member-quartz-8001</module>
 	</modules>
 </project>
