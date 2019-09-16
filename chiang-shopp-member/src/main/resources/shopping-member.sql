@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50721
 File Encoding         : 65001
 
-Date: 2019-09-10 09:47:15
+Date: 2019-09-16 10:28:34
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -91,6 +91,8 @@ CREATE TABLE `qrtz_cron_triggers` (
 -- ----------------------------
 -- Records of qrtz_cron_triggers
 -- ----------------------------
+INSERT INTO `qrtz_cron_triggers` VALUES ('Cluster_Scheduler', 'trigger1', 'test_trriger', '0/10 * * * * ?', 'Asia/Shanghai');
+INSERT INTO `qrtz_cron_triggers` VALUES ('Cluster_Scheduler', 'trigger2', 'test_trriger', '0/15 * * * * ?', 'Asia/Shanghai');
 
 -- ----------------------------
 -- Table structure for qrtz_fired_triggers
@@ -122,6 +124,7 @@ CREATE TABLE `qrtz_fired_triggers` (
 -- ----------------------------
 -- Records of qrtz_fired_triggers
 -- ----------------------------
+INSERT INTO `qrtz_fired_triggers` VALUES ('Cluster_Scheduler', 'DESKTOP-2RQJTRD15686006808691568600680820', 'trigger2', 'test_trriger', 'DESKTOP-2RQJTRD1568600680869', '1568600760259', '1568600760000', '5', 'ACQUIRED', null, null, '0', '0');
 
 -- ----------------------------
 -- Table structure for qrtz_job_details
@@ -146,6 +149,8 @@ CREATE TABLE `qrtz_job_details` (
 -- ----------------------------
 -- Records of qrtz_job_details
 -- ----------------------------
+INSERT INTO `qrtz_job_details` VALUES ('Cluster_Scheduler', 'job1', 'test_job', null, 'com.chiang.quartz.job.QuartzJob', '0', '1', '1', '0', 0xACED0005737200156F72672E71756172747A2E4A6F62446174614D61709FB083E8BFA9B0CB020000787200266F72672E71756172747A2E7574696C732E537472696E674B65794469727479466C61674D61708208E8C3FBC55D280200015A0013616C6C6F77735472616E7369656E74446174617872001D6F72672E71756172747A2E7574696C732E4469727479466C61674D617013E62EAD28760ACE0200025A000564697274794C00036D617074000F4C6A6176612F7574696C2F4D61703B787000737200116A6176612E7574696C2E486173684D61700507DAC1C31660D103000246000A6C6F6164466163746F724900097468726573686F6C6478703F40000000000010770800000010000000007800);
+INSERT INTO `qrtz_job_details` VALUES ('Cluster_Scheduler', 'job2', 'test_job', null, 'com.chiang.quartz.job.QuartzJob2', '0', '1', '1', '0', 0xACED0005737200156F72672E71756172747A2E4A6F62446174614D61709FB083E8BFA9B0CB020000787200266F72672E71756172747A2E7574696C732E537472696E674B65794469727479466C61674D61708208E8C3FBC55D280200015A0013616C6C6F77735472616E7369656E74446174617872001D6F72672E71756172747A2E7574696C732E4469727479466C61674D617013E62EAD28760ACE0200025A000564697274794C00036D617074000F4C6A6176612F7574696C2F4D61703B787000737200116A6176612E7574696C2E486173684D61700507DAC1C31660D103000246000A6C6F6164466163746F724900097468726573686F6C6478703F40000000000010770800000010000000007800);
 
 -- ----------------------------
 -- Table structure for qrtz_locks
@@ -160,6 +165,10 @@ CREATE TABLE `qrtz_locks` (
 -- ----------------------------
 -- Records of qrtz_locks
 -- ----------------------------
+INSERT INTO `qrtz_locks` VALUES ('Cluster_Scheduler', 'STATE_ACCESS');
+INSERT INTO `qrtz_locks` VALUES ('Cluster_Scheduler', 'TRIGGER_ACCESS');
+INSERT INTO `qrtz_locks` VALUES ('schedulerFactoryBean', 'STATE_ACCESS');
+INSERT INTO `qrtz_locks` VALUES ('schedulerFactoryBean', 'TRIGGER_ACCESS');
 
 -- ----------------------------
 -- Table structure for qrtz_paused_trigger_grps
@@ -190,6 +199,8 @@ CREATE TABLE `qrtz_scheduler_state` (
 -- ----------------------------
 -- Records of qrtz_scheduler_state
 -- ----------------------------
+INSERT INTO `qrtz_scheduler_state` VALUES ('Cluster_Scheduler', 'DESKTOP-2RQJTRD1568600680869', '1568600757425', '5000');
+INSERT INTO `qrtz_scheduler_state` VALUES ('schedulerFactoryBean', 'DESKTOP-2RQJTRD1568600798779', '1568600815119', '5000');
 
 -- ----------------------------
 -- Table structure for qrtz_simple_triggers
@@ -277,3 +288,5 @@ CREATE TABLE `qrtz_triggers` (
 -- ----------------------------
 -- Records of qrtz_triggers
 -- ----------------------------
+INSERT INTO `qrtz_triggers` VALUES ('Cluster_Scheduler', 'trigger1', 'test_trriger', 'job1', 'test_job', null, '1568600770000', '1568600760000', '5', 'WAITING', 'CRON', '1568599637000', '0', null, '0', '');
+INSERT INTO `qrtz_triggers` VALUES ('Cluster_Scheduler', 'trigger2', 'test_trriger', 'job2', 'test_job', null, '1568600760000', '1568600745000', '5', 'ACQUIRED', 'CRON', '1568599637000', '0', null, '0', '');

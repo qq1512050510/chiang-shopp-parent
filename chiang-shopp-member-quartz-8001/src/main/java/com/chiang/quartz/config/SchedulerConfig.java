@@ -4,6 +4,7 @@ package com.chiang.quartz.config;
 import org.quartz.Scheduler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.PropertiesFactoryBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
@@ -22,6 +23,7 @@ import java.util.concurrent.Executor;
  * job：任务（一个任务可以对应多个触发器）
  */
 @Configuration
+@ConditionalOnProperty(value = "quartz.open", havingValue = "true", matchIfMissing = false)
 public class SchedulerConfig {
 
     @Autowired

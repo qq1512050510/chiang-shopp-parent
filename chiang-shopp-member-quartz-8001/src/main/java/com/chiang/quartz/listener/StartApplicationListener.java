@@ -10,8 +10,10 @@ import org.quartz.Scheduler;
 import org.quartz.TriggerBuilder;
 import org.quartz.TriggerKey;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.springframework.stereotype.Component;
 
 import com.chiang.quartz.config.SchedulerConfig;
@@ -22,9 +24,13 @@ import lombok.extern.slf4j.Slf4j;
 
 @Component
 @Slf4j
+@ConditionalOnProperty(value = "quartz.open", havingValue = "true", matchIfMissing = false)
 public class StartApplicationListener implements ApplicationListener<ContextRefreshedEvent> {
-    @Autowired
-    SchedulerConfig schedulerConfig;
+   // @Autowired
+   // SchedulerConfig schedulerConfig;
+	@Autowired
+    private SchedulerFactoryBean schedulerConfig;
+	
     public static AtomicInteger count = new AtomicInteger(0);
     private static String TRIGGER_GROUP_NAME = "test_trriger";
     private static String JOB_GROUP_NAME = "test_job";
@@ -44,7 +50,8 @@ public class StartApplicationListener implements ApplicationListener<ContextRefr
     public void initMyJob() {
         Scheduler scheduler = null;
         try {
-            scheduler = schedulerConfig.scheduler();
+            //scheduler = schedulerConfig.scheduler();
+        	scheduler = schedulerConfig.getScheduler();
 
             TriggerKey triggerKey = TriggerKey.triggerKey("trigger1", TRIGGER_GROUP_NAME);
             CronTrigger trigger = (CronTrigger) scheduler.getTrigger(triggerKey);

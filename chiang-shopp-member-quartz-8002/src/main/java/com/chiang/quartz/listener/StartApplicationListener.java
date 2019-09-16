@@ -53,7 +53,7 @@ public class StartApplicationListener implements ApplicationListener<ContextRefr
                 JobDetail jobDetail = JobBuilder.newJob(clazz).withIdentity("job1", JOB_GROUP_NAME).build();
                 CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0/10 * * * * ?");
                 trigger = TriggerBuilder.newTrigger().withIdentity("trigger1", TRIGGER_GROUP_NAME)
-                        .withSchedule(scheduleBuilder).build();
+                        .withSchedule(scheduleBuilder.withMisfireHandlingInstructionIgnoreMisfires()).build();
                 scheduler.scheduleJob(jobDetail, trigger);
                 log.info("Quartz 创建了job:...:{}", jobDetail.getKey());
             } else {
@@ -67,7 +67,7 @@ public class StartApplicationListener implements ApplicationListener<ContextRefr
                 JobDetail jobDetail2 = JobBuilder.newJob(clazz).withIdentity("job2", JOB_GROUP_NAME).build();
                 CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0/15 * * * * ?");
                 trigger2 = TriggerBuilder.newTrigger().withIdentity("trigger2", TRIGGER_GROUP_NAME)
-                        .withSchedule(scheduleBuilder).build();
+                        .withSchedule(scheduleBuilder.withMisfireHandlingInstructionIgnoreMisfires()).build();
                 scheduler.scheduleJob(jobDetail2, trigger2);
                 log.info("Quartz 创建了job:...:{}", jobDetail2.getKey());
             } else {
