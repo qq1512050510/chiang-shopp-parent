@@ -7,6 +7,7 @@ import com.chiang.quartz.job.QuartzJob;
 import com.chiang.quartz.service.JobService;
 import org.quartz.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -22,6 +23,7 @@ import static org.quartz.SimpleScheduleBuilder.simpleSchedule;
  * Created by xiaozhi on 2019/2/25.
  */
 @Service
+@ConditionalOnProperty(value = "quartz.open", havingValue = "true", matchIfMissing = false)
 public class JobServiceImpl implements JobService {
 
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")

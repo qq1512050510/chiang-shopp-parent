@@ -17,6 +17,6 @@ public interface MemberDao {
 	Integer insertUser(UserEntity userEntity);
 
 	@Select("select  id,username,password,phone,email,created,updated from mb_user where username = #{username} and password = #{password}")
-	UserEntity login(@Param("username") String userId,@Param("password")String password);
+	UserEntity login(@Param("username") String username,@Param("password")String password);
 
 }

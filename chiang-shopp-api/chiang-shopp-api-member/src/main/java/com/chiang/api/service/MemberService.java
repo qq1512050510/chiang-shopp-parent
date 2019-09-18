@@ -17,7 +17,8 @@ public interface MemberService {
 	ResponseBase regUser(@RequestBody UserEntity user);
 	
 	
-	//登录信息
+	//用户登录
+	@RequestMapping("/login")
 	ResponseBase login(@RequestBody UserEntity user);
 }
 

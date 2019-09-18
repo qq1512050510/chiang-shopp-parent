@@ -3,6 +3,7 @@ package com.chiang.quartz.util;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.PropertiesFactoryBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
@@ -18,6 +19,7 @@ import java.util.Properties;
 /**
 */
 @Configuration
+@ConditionalOnProperty(value = "quartz.open", havingValue = "true", matchIfMissing = false)
 public class SchedulerQuartzConfig {
 
     @Autowired

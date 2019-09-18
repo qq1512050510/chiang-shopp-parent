@@ -53,3 +53,6 @@ MESSAGESQUEUE: message_queue
 messages:
   queue: messages_queue
 
+#quartz任务
+quartz:
+  open: false

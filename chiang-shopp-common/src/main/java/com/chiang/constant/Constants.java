@@ -15,13 +15,15 @@ public interface Constants {
 	Integer HTTP_RES_CODE_200 = 200;
 	// 系统错误
 	Integer HTTP_RES_CODE_500 = 500;
-	
+
 	String SMS_MAIL = "email";
-	
+
 	String MSG_SMS = "email";
 
 	String MSG_EMAIL = "email";
-	//会员token
-	String TOKEN_MEMBER = "";
+	// 会员token
+	String TOKEN_MEMBER = "TOKEN_MEMBER";
+	// 会员token过期时间 90 天
+	Long TOKEN_MEMBER_TIME = (long) (90 * 24 * 60 * 60);
 
 }

@@ -10,12 +10,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.fastjson.JSONObject;
 import com.chiang.api.service.MemberService;
 import com.chiang.base.BaseApiService;
+import com.chiang.base.BaseRedisService;
 import com.chiang.base.ResponseBase;
 import com.chiang.constant.Constants;
 import com.chiang.dao.MemberDao;
 import com.chiang.entity.UserEntity;
 import com.chiang.mq.RegisterMailboxProducer;
 import com.chiang.utils.MD5Util;
+import com.chiang.utils.TokenUtil;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -103,10 +105,15 @@ public class MemberServiceImpl extends BaseApiService implements MemberService {
 			return setResultError("账号或者密码不正确！");
 		}
 		//3、如果账号正确，对应生成token
-		
+		String memberToken = TokenUtil.getMemberToken();
 		//4、存放redis中，key为token value为userid
+		Integer userId = userEntity.getId();
+		log.info("##用户信息token存放在redis中...key为：{}，value{}",memberToken,userId);
+		baseRedisService.setString(memberToken, userId, Constants.TOKEN_MEMBER_TIME);
 		//5、直接返回token
-		return null;
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("memberToken", memberToken);
+		return setsetResultSuccess(jsonObject);
 	}
 
 }

@@ -10,6 +10,7 @@ package com.chiang.lifecycle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
@@ -20,6 +21,7 @@ import com.chiang.quartz.service.JobService;
  * createTime 
  **/
 @Component
+@ConditionalOnProperty(value = "quartz.open", havingValue = "true", matchIfMissing = false)
 public class ApplicationRunnerImpl implements ApplicationRunner {
 	@Autowired
 	private JobService jobService;
