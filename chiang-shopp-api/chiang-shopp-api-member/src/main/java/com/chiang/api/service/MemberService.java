@@ -20,5 +20,9 @@ public interface MemberService {
 	//用户登录
 	@RequestMapping("/login")
 	ResponseBase login(@RequestBody UserEntity user);
+	
+	//使用token进行登录
+	@RequestMapping("/findUserByToken")
+	ResponseBase findUserByToken(String token);
 }
 

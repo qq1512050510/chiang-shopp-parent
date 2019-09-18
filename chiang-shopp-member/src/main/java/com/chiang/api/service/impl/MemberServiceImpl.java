@@ -3,6 +3,7 @@ package com.chiang.api.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,7 +46,7 @@ public class MemberServiceImpl extends BaseApiService implements MemberService {
 		if (userEntity == null) {
 			return setResultError("未查找到用户信息。");
 		}
-		return setsetResultSuccess(userEntity);
+		return setResultSuccess(userEntity);
 	}
 
 	@Override
@@ -66,7 +67,7 @@ public class MemberServiceImpl extends BaseApiService implements MemberService {
 		String json = emailJson(email);
 		log.info("##会员服务推送消息到消息服务平台##json:{}", json);
 		sendMsg(json);
-		return setsetResultSuccess(user, "用户注册成功。");
+		return setResultSuccess(user, "用户注册成功。");
 	}
 
 	// 参数封装
@@ -87,33 +88,55 @@ public class MemberServiceImpl extends BaseApiService implements MemberService {
 	}
 
 	@Override
-	public ResponseBase login(UserEntity user) {
-		//1、验证参数
+	public ResponseBase login(@RequestBody UserEntity user) {
+		// 1、验证参数
 		String username = user.getUsername();
-		if(StringUtils.isEmpty(username)) {
+		if (StringUtils.isEmpty(username)) {
 			return setResultError("用户名不能为空！");
 		}
 		String password = user.getPassword();
-		if(StringUtils.isEmpty(password)) {
+		if (StringUtils.isEmpty(password)) {
 			return setResultError("密码不能为空！");
-			
+
 		}
 		String newPassword = MD5Util.MD5(password);
-		//2、数据库查找账号密码是否正确
-		UserEntity userEntity = memberDao.login(username,newPassword);
-		if(userEntity==null) {
+		// 2、数据库查找账号密码是否正确
+		UserEntity userEntity = memberDao.login(username, newPassword);
+		if (userEntity == null) {
 			return setResultError("账号或者密码不正确！");
 		}
-		//3、如果账号正确，对应生成token
+		// 3、如果账号正确，对应生成token
 		String memberToken = TokenUtil.getMemberToken();
-		//4、存放redis中，key为token value为userid
+		// 4、存放redis中，key为token value为userid
 		Integer userId = userEntity.getId();
-		log.info("##用户信息token存放在redis中...key为：{}，value{}",memberToken,userId);
-		baseRedisService.setString(memberToken, userId, Constants.TOKEN_MEMBER_TIME);
-		//5、直接返回token
+		log.info("##用户信息token存放在redis中...key为：{}，value{}", memberToken, userId);
+		baseRedisService.setString(memberToken, userId + "", Constants.TOKEN_MEMBER_TIME);
+		// 5、直接返回token
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("memberToken", memberToken);
-		return setsetResultSuccess(jsonObject);
+		return setResultSuccess(jsonObject);
+	}
+
+	@Override
+	public ResponseBase findUserByToken(String token) {
+		log.info("token is :{}",token);
+		// 1、验证参数
+		if (StringUtils.isEmpty(token)) {
+			return setResultError("token不能为空");
+		}
+		// 2、从Redis中，使用token，查了对应的userId
+		String userId = (String) baseRedisService.getString(token);
+		// 3、使用UserId数据库查询用户返回客户端
+		log.info(userId);
+		if (StringUtils.isEmpty(userId)) {
+			return setResultError("token无效或者已经过期！");
+		}
+		UserEntity userEntity = memberDao.findByID(Long.parseLong(userId));
+		if (ObjectUtils.isEmpty(userEntity)) {
+			return setResultError("未查找到该用户信息");
+		}
+		return setResultSuccess(userEntity);
+
 	}
 
 }

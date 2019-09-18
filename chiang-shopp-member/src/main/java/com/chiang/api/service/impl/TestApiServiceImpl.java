@@ -23,13 +23,13 @@ public class TestApiServiceImpl extends BaseApiService implements TestApiService
 
 	@Override
 	public ResponseBase testResponseBase() {
-		return setsetResultSuccess();
+		return setResultSuccess();
 	}
 
 	@Override
 	public ResponseBase testRedis(String key,String value) {
 		baseRedisService.setString(key, value, null);
-		return setsetResultSuccess();
+		return setResultSuccess();
 	}
 
 }
