@@ -38,7 +38,8 @@ public class SchedulerQuartzConfig {
         Properties pro = propertiesFactoryBean.getObject();
         factory.setOverwriteExistingJobs(true);
         factory.setDataSource(dataSourceBean);
-
+        //添加ScheduleName
+        factory.setSchedulerName("Cluster_Scheduler");
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         executor.setCorePoolSize(10);
         executor.setMaxPoolSize(20);

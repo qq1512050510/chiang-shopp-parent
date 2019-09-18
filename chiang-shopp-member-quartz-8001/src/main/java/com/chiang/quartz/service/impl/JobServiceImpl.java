@@ -4,7 +4,11 @@ import com.chiang.quartz.constant.QuartzConstant;
 import com.chiang.quartz.constant.SystemConstantImpl;
 import com.chiang.quartz.job.AsyncJob;
 import com.chiang.quartz.job.QuartzJob;
+import com.chiang.quartz.job.test;
 import com.chiang.quartz.service.JobService;
+
+import lombok.extern.slf4j.Slf4j;
+
 import org.quartz.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
@@ -12,19 +16,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Map;
 import java.util.UnknownFormatConversionException;
 
 import static org.quartz.SimpleScheduleBuilder.simpleSchedule;
-
-/**
- * Created by xiaozhi on 2019/2/25.
- */
 @Service
+@Slf4j
 public class JobServiceImpl implements JobService {
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
+    //@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
     private SchedulerFactoryBean schedulerFactoryBean;
 
@@ -61,7 +63,7 @@ public class JobServiceImpl implements JobService {
             if (jobDetail == null) {
                 //构建job信息
                 jobDetail = JobBuilder.newJob(clazz).withIdentity(jobName, jobGroup).build();
-                //用JopDataMap来传递数据
+                //用JobDataMap来传递数据
                 jobDetail.getJobDataMap().put("transValue", transValue);
 
                 //表达式调度构建器(即任务执行的时间)
@@ -77,8 +79,6 @@ public class JobServiceImpl implements JobService {
             e.printStackTrace();
         }
     }
-    
-
 
     @Override
     public void addAsyncJob(String jobName, String jobGroup) {
@@ -145,57 +145,76 @@ public class JobServiceImpl implements JobService {
         }
         return 1;
     }
-
-	@Override
-	public void runJobTimes() {
-		
-		System.out.println("innerDev===========");
+    
+    
+    /**
+     * 定时触发的功能接口
+     *
+     * @param jobName  工作名称
+     * @param jobGroup 工作组
+     * @param expression 触发表达式
+     * @param transValue 传递的参数
+     */
+    @Override
+    public void addCronJobExpression(String jobName, String jobGroup, String expression, Map<String, Object> transValue, Class clazz) {
+        System.out.println("innerDev===========");
+        
+        if (ObjectUtils.isEmpty(expression)) {
+            throw new UnknownFormatConversionException(
+                    (String) systemConstant.fetchAttrValue(QuartzConstant.class.getSimpleName(),
+                            QuartzConstant.QUARTZ_DATE_NOT_NULL));
+        }
+        if(ObjectUtils.isEmpty(jobName) || ObjectUtils.isEmpty(jobGroup)) {
+            throw new UnknownFormatConversionException(
+                    (String) systemConstant.fetchAttrValue(QuartzConstant.class.getSimpleName(),
+                            QuartzConstant.QUARTZ_DATE_NOT_NULL));
+        }
         // 参数不能为空
         try {
-        	CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronScheduleNonvalidatedExpression("*/5 * * * * ?");
-
             Scheduler scheduler = schedulerFactoryBean.getScheduler();
-            
-            //JobKey jobKey = JobKey.jobKey("test", "123");
-            //JobDetail jobDetail = scheduler.getJobDetail(jobKey);
-            TriggerKey triggerKey = TriggerKey.triggerKey("test" + "_trigger", "123" + "_trigger");
-            CronTrigger trigger = (CronTrigger) scheduler.getTrigger(triggerKey);
-            if (trigger == null) {
-            	JobDetail jobDetail = JobBuilder.newJob(QuartzJob.class)
-            			.withIdentity("test", "123").build();
-            	//jobDetail.getJobDataMap().put("scheduleJob", job);
-                //构建job信息
-                //jobDetail = JobBuilder.newJob(QuartzJob.class).withIdentity("test", "123").build();
-                //用JopDataMap来传递数据
-                //jobDetail.getJobDataMap().put("transValue", transValue);
 
-                //表达式调度构建器(即任务执行的时间)
-                //CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule(dateCron);
+            JobKey jobKey = JobKey.jobKey(jobName, jobGroup);
+            JobDetail jobDetail = scheduler.getJobDetail(jobKey);
+            if (jobDetail == null) {
+                //构建job信息
+                jobDetail = JobBuilder.newJob(clazz).withIdentity(jobName, jobGroup).build();
+                //用JopDataMap来传递数据
+                jobDetail.getJobDataMap().put("transValue", transValue);
+               
+                //表达式调度构建器(即任务执行的时间) 
+                CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule(expression);
                 //CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronScheduleNonvalidatedExpression("*/5 * * * * ?");
 
                 //按新的cronExpression表达式构建一个新的trigger
-                trigger = TriggerBuilder.newTrigger().withIdentity("test" + "_trigger", "123" + "_trigger")
-                        .withSchedule(scheduleBuilder.withMisfireHandlingInstructionIgnoreMisfires()).build();
+                CronTrigger trigger = TriggerBuilder.newTrigger().withIdentity(jobName + "_trigger", jobGroup + "_trigger")
+                        .withSchedule(scheduleBuilder).build();
                 scheduler.scheduleJob(jobDetail, trigger);
-            }else {
-                /*TriggerKey triggerKey = TriggerKey.triggerKey("test" + "_trigger", "123" + "_trigger");
-                //scheduler.resumeTrigger(triggerKey);
-                scheduler.resumeTrigger(triggerKey);*/
-            	// Trigger已存在，那么更新相应的定时设置
-            	// 表达式调度构建器
-            	//CronScheduleBuilder scheduleBuilder1 = CronScheduleBuilder.cronSchedule("*/5 * * * * ?");
-
-
-            	
-      
-            	// 按新的cronExpression表达式重新构建trigger
-            	trigger = trigger.getTriggerBuilder().withIdentity(triggerKey).withSchedule(scheduleBuilder.withMisfireHandlingInstructionIgnoreMisfires()).startNow().build();
-            	System.out.println("trigger.getMisfireInstruction() = "+trigger.getMisfireInstruction());
-            	// 按新的trigger重新设置job执行
-            	scheduler.rescheduleJob(triggerKey, trigger);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+	@Override
+	public CronTrigger getConTrigger(String triggerName, String triggerGroupName) {
+		Scheduler scheduler = schedulerFactoryBean.getScheduler();
+		TriggerKey triggerKey = TriggerKey.triggerKey(triggerName, triggerGroupName);
+		try {
+			CronTrigger trigger = (CronTrigger) scheduler.getTrigger(triggerKey);
+			return trigger;
+		} catch (SchedulerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
+
+	public void addCronJobExpression(String jobName, String jobGroup, String expression, Map<String, Object> transValue,
+			test clazz) {
+		log.info(clazz.name);
+		clazz.getClass();
+	}
+	
+	
+	
 }

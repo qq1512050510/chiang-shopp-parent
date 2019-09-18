@@ -28,9 +28,6 @@ public class SchedulerConfig {
 
     @Autowired
     private DataSource dataSource;
-    
-    @Autowired
-    private JobFactory jobFactory;
 
     /**
      * 调度器
@@ -60,8 +57,6 @@ public class SchedulerConfig {
         factory.setApplicationContextSchedulerContextKey("applicationContext");
         factory.setTaskExecutor(schedulerThreadPool());
         factory.setQuartzProperties(quartzProperties());
-        //将quartz的job交给Spring容器去管理
-        factory.setJobFactory(jobFactory);
         factory.setStartupDelay(10);//延迟10s执行
         return factory;
     }

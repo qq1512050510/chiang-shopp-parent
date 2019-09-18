@@ -24,7 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Component
 @Slf4j
-@ConditionalOnProperty(value = "quartz.open", havingValue = "false", matchIfMissing = false)
+@ConditionalOnProperty(value = "quartz.open", havingValue = "true", matchIfMissing = false)
 public class StartApplicationListener implements ApplicationListener<ContextRefreshedEvent> {
     @Autowired
     SchedulerConfig schedulerConfig;
@@ -45,9 +45,6 @@ public class StartApplicationListener implements ApplicationListener<ContextRefr
         	log.warn("AAAAAAAAAA");
         	initMyJob();
         }
-    }
-    public void initJob() {
-    	
     }
 
     public void initMyJob() {

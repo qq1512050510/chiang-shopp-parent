@@ -160,5 +160,6 @@
 		<module>chiang-shopp-member</module>
 		<module>chiang-shopp-message</module>
 		<module>chiang-shopp-member-quartz-8001</module>
+		<module>chiang-shopp-member-quartz-8003</module>
 	</modules>
 </project>

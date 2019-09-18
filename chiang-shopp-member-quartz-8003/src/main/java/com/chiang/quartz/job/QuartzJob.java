@@ -1,7 +1,6 @@
 package com.chiang.quartz.job;
 
 import java.util.Date;
-import java.util.Map;
 
 import org.quartz.DisallowConcurrentExecution;
 import org.quartz.JobExecutionContext;
@@ -17,13 +16,9 @@ import lombok.extern.slf4j.Slf4j;
 @DisallowConcurrentExecution
 @Slf4j
 public class QuartzJob extends QuartzJobBean {
-	
-	public static String name ="submijob";
-	public String expression ="0/5 ****";
-	//
     @Override
     protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
-        Map<String,Object> taskName = context.getJobDetail().getJobDataMap().getWrappedMap();
+        String taskName = context.getJobDetail().getJobDataMap().getString("name");
         log.info("---> Quartz job {}, {} <----", new Date(), taskName);
     }
 }

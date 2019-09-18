@@ -27,7 +27,7 @@ public class SchedulerQuartzConfig {
     @Autowired
     private DataSource dataSourceBean;
 
-    @Bean(name = "schedulerFactoryBean")
+    @Bean(name = "schedulerBean")
     public SchedulerFactoryBean schedulerFactoryBean() throws IOException {
         //获取配置属性
         PropertiesFactoryBean propertiesFactoryBean = new PropertiesFactoryBean();
@@ -39,7 +39,7 @@ public class SchedulerQuartzConfig {
         Properties pro = propertiesFactoryBean.getObject();
         factory.setOverwriteExistingJobs(true);
         factory.setDataSource(dataSourceBean);
-
+        //factory.setSchedulerName("schedulerFactoryBean");
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         executor.setCorePoolSize(10);
         executor.setMaxPoolSize(20);

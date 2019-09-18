@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ScheduledTask {
 
-    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    /*private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     private Integer count0 = 1;
     private Integer count1 = 1;
     private Integer count2 = 1;
@@ -30,5 +30,5 @@ public class ScheduledTask {
     @Scheduled(cron = "0 0 1 * * *")
     public void reportCurrentTimeCron() throws InterruptedException {
         System.out.println(String.format("reportCurrentTimeCron第%s次执行，当前时间为：%s", count2++, dateFormat.format(new Date())));
-    }
+    }*/
 }
