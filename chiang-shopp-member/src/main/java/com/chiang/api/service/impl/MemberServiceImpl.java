@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
@@ -118,7 +120,7 @@ public class MemberServiceImpl extends BaseApiService implements MemberService {
 	}
 
 	@Override
-	public ResponseBase findUserByToken(String token) {
+	public ResponseBase findUserByToken(@RequestParam(value="token")String token) {
 		log.info("token is :{}",token);
 		// 1、验证参数
 		if (StringUtils.isEmpty(token)) {
@@ -135,6 +137,7 @@ public class MemberServiceImpl extends BaseApiService implements MemberService {
 		if (ObjectUtils.isEmpty(userEntity)) {
 			return setResultError("未查找到该用户信息");
 		}
+		userEntity.setPassword(null);
 		return setResultSuccess(userEntity);
 
 	}

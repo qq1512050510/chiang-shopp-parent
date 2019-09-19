@@ -1,5 +1,6 @@
 package com.chiang.api.service;
 
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -22,7 +23,7 @@ public interface MemberService {
 	ResponseBase login(@RequestBody UserEntity user);
 	
 	//使用token进行登录
-	@RequestMapping("/findUserByToken")
+	@PostMapping("/findUserByToken")
 	ResponseBase findUserByToken(String token);
 }
 
