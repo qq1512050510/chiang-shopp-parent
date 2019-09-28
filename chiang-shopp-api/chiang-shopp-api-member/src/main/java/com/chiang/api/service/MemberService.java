@@ -8,6 +8,7 @@ import com.chiang.base.ResponseBase;
 //import com.chiang.entity.UserEntity;
 import com.chiang.entity.UserEntity;
 
+@RequestMapping("/member")
 public interface MemberService {
 	//使用UserId查找用户信息
 	@RequestMapping("/findUserById")
