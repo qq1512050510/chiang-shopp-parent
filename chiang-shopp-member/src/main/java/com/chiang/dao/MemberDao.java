@@ -13,10 +13,27 @@ public interface MemberDao {
 	@Select("select id,username,password,phone,email,created,updated from mb_user where id = #{userId}")
 	UserEntity findByID(@Param("userId") Long userId);
 
-	@Insert("INSERT  INTO `mb_user`  (username,password,phone,email,created,updated) VALUES (#{username},#{password},#{phone},#{email},#{created},#{updated});")
+	//@Insert("INSERT  INTO `mb_user`  (username,password,phone,email,created,updated) VALUES (#{username},#{password},#{phone},#{email},#{created},#{updated});")
+	@Insert("<script>" +
+		    "INSERT  INTO `mb_user`  (username,password,phone,email"
+		    +"<if test='created!=null and created!=\"\"'>" +
+            ",created"+
+            "</if>" 
+            +"<if test='updated!=null and updated!=\"\"'>" +
+            ",updated"+
+            "</if>" 
+		    +") VALUES (#{username},#{password},#{phone},#{email}"
+		    +"<if test='created!=null and created!=\"\"'>" +
+            ",#{created}"+
+            "</if>" 
+            +"<if test='updated!=null and updated!=\"\"'>" +
+            ",#{updated}"+
+            "</if>"
+		    + ");"
+		     +"</script>")
 	Integer insertUser(UserEntity userEntity);
 
-	@Select("select  id,username,password,phone,email,created,updated from mb_user where username = #{username} and password = #{password}")
+	@Select("select id,username,password,phone,email,created,updated from mb_user where username = #{username} and password = #{password}")
 	UserEntity login(@Param("username") String username,@Param("password")String password);
 
 }

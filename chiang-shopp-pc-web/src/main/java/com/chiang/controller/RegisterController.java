@@ -21,13 +21,13 @@ public class RegisterController {
 	private static final String REGISTER = "register";
 	private static final String LOGIN = "login";
 
-	@RequestMapping(value = "/register", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "/register", method = { RequestMethod.GET })
 	public String register() {
 		return REGISTER;
 	}
 
 	// 注册业务具体实现
-	@RequestMapping(value = "/register", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "/register", method = { RequestMethod.POST })
 	public String registerPost(UserEntity userEntity, HttpServletRequest request) {
 		// 1、验证参数
 		// 2、调用会员注册接口
