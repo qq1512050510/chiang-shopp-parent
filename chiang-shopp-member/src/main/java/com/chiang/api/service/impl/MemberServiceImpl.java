@@ -29,7 +29,7 @@ import org.apache.commons.lang.StringUtils;
 
 @Slf4j
 @RestController
-@RequestMapping("/member")
+//@RequestMapping("/member")
 public class MemberServiceImpl extends BaseApiService implements MemberService {
 
 	@Autowired
@@ -120,7 +120,9 @@ public class MemberServiceImpl extends BaseApiService implements MemberService {
 	}
 
 	@Override
-	public ResponseBase findUserByToken(@RequestParam(value="token")String token) {
+	//public ResponseBase findUserByToken(@RequestParam(value = "token",required = false) String token) {
+	public ResponseBase findUserByToken(@RequestParam("token") String token) {
+	//public ResponseBase findUserByToken(@RequestParam(value="token")String token) {
 		log.info("token is :{}",token);
 		// 1、验证参数
 		if (StringUtils.isEmpty(token)) {

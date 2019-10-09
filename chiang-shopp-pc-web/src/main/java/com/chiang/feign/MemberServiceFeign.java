@@ -10,8 +10,8 @@ import com.chiang.api.service.MemberService;
  * spring:
 	  application:
 	    name: member*/
-@FeignClient("member")
 @Component
+@FeignClient("member")
 public interface MemberServiceFeign extends MemberService{
 
 }

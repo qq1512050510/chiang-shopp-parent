@@ -83,8 +83,9 @@
 							
 						</div>
 					
-						<#if error ?? > <span
-								style="color: red; font-size: 18px;"> ${error} </span> </#if>
+						<#if error ?? > 
+							<span style="color: red; font-size: 18px;"> ${error} </span> 
+						</#if>
 					</form>
 					<div class="hezuo oauth">
 						<h4>合作网站帐号登录</h4>

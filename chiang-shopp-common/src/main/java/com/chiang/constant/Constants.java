@@ -23,7 +23,11 @@ public interface Constants {
 	String MSG_EMAIL = "email";
 	// 会员token
 	String TOKEN_MEMBER = "TOKEN_MEMBER";
+	
 	// 会员token过期时间 90 天
 	Long TOKEN_MEMBER_TIME = (long) (90 * 24 * 60 * 60);
+	
+	//cookie 会员token 名称
+	String COOKIE_MEMBER_TOKEN = "cookie_member_token";
 
 }
