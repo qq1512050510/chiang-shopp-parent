@@ -3,6 +3,10 @@ package com.chiang.api.service.impl;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chiang.api.service.TestApiService;
@@ -22,6 +26,8 @@ public class TestApiServiceImpl extends BaseApiService implements TestApiService
 	}
 
 	@Override
+	@RequestMapping(value = "testResponseBase", method = RequestMethod.GET, produces = {"application/json;charset=UTF-8"})
+    @ResponseBody
 	public ResponseBase testResponseBase() {
 		return setResultSuccess();
 	}
@@ -30,6 +36,13 @@ public class TestApiServiceImpl extends BaseApiService implements TestApiService
 	public ResponseBase testRedis(String key,String value) {
 		baseRedisService.setString(key, value, null);
 		return setResultSuccess();
+	}
+
+	@Override
+	@RequestMapping(value = "testSh/{fileName}", method = RequestMethod.GET, produces = {"text/plain;charset=UTF-8"})
+    @ResponseBody
+	public String testSh(@PathVariable("fileName")String fileName) {
+		return "echo \"123\"\necho \"tt\"";
 	}
 
 }

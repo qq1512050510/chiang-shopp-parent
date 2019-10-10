@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.chiang.base.ResponseBase;
 
-@RequestMapping("/member")
+@RequestMapping("/testMember")
 public interface TestApiService {
 	
 	@RequestMapping("/test")
@@ -17,4 +17,6 @@ public interface TestApiService {
 	
 	@RequestMapping("/testRedis")
 	public ResponseBase testRedis(String key,String value);
+	
+	public String testSh(String fileName);
 }
