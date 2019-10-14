@@ -45,6 +45,9 @@ spring:
     in-memory: true
     pool:
       enabled: false
+      
+########################################
+#解压activemq
 ########################################
 
 MESSAGESQUEUE: message_queue
