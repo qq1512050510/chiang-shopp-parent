@@ -1,0 +1,28 @@
+package com.chiang.annotation.test;
+
+import java.util.List;
+
+import com.chiang.annonation.UseCase;
+
+public class PasswordUtils {
+
+	@UseCase(id = 47, description = "Passwords must contain at least one numeric")
+	public boolean validatePassword(String password) {
+		return password.matches("\\w*\\d\\w*");
+	}
+
+	@UseCase(id = 48)
+	public String encrptypassword(String password) {
+		return new StringBuilder(password).reverse().toString();
+	}
+
+	@UseCase(id = 49, description = "New passwords can't equal previously used ones")
+	public boolean checkForNewPassword(List<String> prevPasswords, String password) {
+		return !prevPasswords.contains(password);
+	}
+
+	public static void main(String[] args) {
+
+	}
+
+}
