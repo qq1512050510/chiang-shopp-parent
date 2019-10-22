@@ -77,8 +77,12 @@ public class RemoteShellTool {
 			// 4、执行命令
 			session.execCommand(cmds);
 			in = session.getStdout();
+			//in = session.getStderr();
+			
 			result = this.processStdout(in, this.charset);
 			log.info("返回结果：{}", result);
+			log.info("返回结果：{}", session.getExitSignal());
+			log.info("返回结果：{}", session.getExitStatus());
 			// this.close();
 			flag = true;
 			returnMap.put("result", result);
@@ -134,6 +138,12 @@ public class RemoteShellTool {
 		return true;
 	}
 
+	/**
+	 * 
+	 * @param localFile 本地文件地址
+	 * @param remoteTargetDirectory
+	 * @return
+	 */
 	public boolean putFile(String localFile, String remoteTargetDirectory) {
 		// 1、登录
 		try {
@@ -153,7 +163,8 @@ public class RemoteShellTool {
 
 	public static void main(String[] args) throws IOException {
 		RemoteShellTool tool = new RemoteShellTool("192.168.111.129", "root", "root", "utf-8");
-		String cmds = "wget http://192.168.43.95:8762/testMember/test";
+		//String cmds = "wgett http://192.168.43.95:8762/testMember/test";
+		String cmds = "ifconfig ttt";
 		String cmd_findFile = "find . -name 'test.*'";
 		// boolean exec = tool.exec("sh test.sh");
 		boolean exec = (boolean) tool.exec(cmds).get("flag");

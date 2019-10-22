@@ -28,6 +28,7 @@ public class LoginController {
 	private static final String LOGIN = "login";
 	
 	//private static final String INDEX = "index";
+	//重定向
 	private static final String INDEX = "redirect:/";
 	//跳转登录页面
 	@RequestMapping(value="/login",method={RequestMethod.GET})

@@ -29,5 +29,9 @@ public interface Constants {
 	
 	//cookie 会员token 名称
 	String COOKIE_MEMBER_TOKEN = "cookie_member_token";
+	
+	String BASE_SERVICE1 = "base_service1";
+	
+	String BASE_SERVICE2 = "base_service2";
 
 }
