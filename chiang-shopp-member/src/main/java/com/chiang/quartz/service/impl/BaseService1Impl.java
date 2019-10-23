@@ -8,12 +8,13 @@ import com.chiang.quartz.service.BaseService;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+/*@Service(Constants.BASE_SERVICE1)*/
 @Service(Constants.BASE_SERVICE1)
 public class BaseService1Impl implements BaseService {
 	private String type = Constants.BASE_SERVICE1;
 
 	@Override
-	public void methdo() {
+	public void method() {
 		log.info("{}的方法",type);
 	}
 

@@ -9,22 +9,12 @@ import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@Service
+@Service(Constants.BASE_SERVICE2)
 public class BaseService2Impl implements BaseService{
-
 	private String type = Constants.BASE_SERVICE2;
 	
-	
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
 	@Override
-	public void methdo() {
+	public void method() {
 		log.info("{}的方法",type);
 	}
 
