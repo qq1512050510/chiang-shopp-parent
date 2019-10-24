@@ -7,6 +7,4 @@ public class UnknownStorageTypeException extends RuntimeException {
 	public UnknownStorageTypeException(String message) {
 		super(message);
 	}
-	
-	
 }
