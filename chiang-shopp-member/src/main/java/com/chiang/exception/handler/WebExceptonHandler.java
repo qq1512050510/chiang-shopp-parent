@@ -3,7 +3,6 @@ package com.chiang.exception.handler;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.catalina.connector.ClientAbortException;
-import org.hibernate.validator.internal.util.privilegedactions.GetMethodFromPropertyName;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -11,6 +10,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.HttpMediaTypeNotAcceptableException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -24,6 +24,7 @@ import com.chiang.exception.UnauthenticatedException;
  *
  */
 @ControllerAdvice
+/*@RestControllerAdvice*/
 public class WebExceptonHandler {
 	private static final Logger log = LoggerFactory.getLogger(WebExceptonHandler.class);
 
@@ -37,7 +38,7 @@ public class WebExceptonHandler {
 	public String unauthenticatedException(UnauthenticatedException exception) {
 		// return "redirect:" + shiroFilterFactoryBean.getLoginUrl();
 		log.info("ControllerAdvice捕获异常{}", exception.getMessage());
-		return "redirect:/";
+		return "redirect:/errorException";
 	}
 
 	/**
@@ -65,7 +66,8 @@ public class WebExceptonHandler {
 		String msg = StringUtils.isEmpty(exception.getMessage()) ? "系统出现异常" : exception.getMessage();
 		log.error(msg, exception);
 		generateErrorInfo(Constants.FAIL, msg);
-		return "forward:/error";
+		//return "forward:/error";
+		return "forward:/errorException";
 	}
 
 	/**
