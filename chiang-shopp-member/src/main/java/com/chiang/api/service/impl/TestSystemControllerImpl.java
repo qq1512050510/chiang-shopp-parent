@@ -9,10 +9,17 @@ import com.chiang.information.Server;
 @RestController
 @RequestMapping("/system")
 public class TestSystemControllerImpl {
+	
+	/**
+	 * 系统监控接口
+	 * 整个系统状态
+	 * @return
+	 * @throws Exception
+	 */
 	@GetMapping("/index")
-	public String index() throws Exception {
+	public Server index() throws Exception {
 		Server server = new Server();
 		server.copyTo();
-		return server.toString();
+		return server;
 	}
 }

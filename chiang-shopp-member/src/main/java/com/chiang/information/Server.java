@@ -1,6 +1,7 @@
 package com.chiang.information;
 
 
+
 import oshi.SystemInfo;
 import oshi.hardware.CentralProcessor;
 import oshi.hardware.CentralProcessor.TickType;
@@ -11,22 +12,18 @@ import oshi.software.os.OSFileStore;
 import oshi.software.os.OperatingSystem;
 import oshi.util.Util;
 
-import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
 
 import com.chiang.utils.IPUtils;
 
-import lombok.Data;
-
-
 /**
  * 服务器相关信息
  */
 public class Server {
 
-	private static final int OSHI_WAIT_SECOND = 1000;
+    private static final int OSHI_WAIT_SECOND = 1000;
 
     /**
      * CPU相关信息
