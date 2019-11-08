@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,8 +19,14 @@ import com.chiang.constant.Constants;
 import com.chiang.feign.MemberServiceFeign;
 import com.chiang.utils.CookieUtil;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 public class IndexController {
+	
+	//private static final Logger log = LoggerFactory.getLogger(IndexController.class);
+
 	private static final String INDEX = "index";
 	
 	@Autowired
@@ -38,6 +46,8 @@ public class IndexController {
 				request.setAttribute("username", username);
 			}
 		}
+		System.out.println("test");
+		log.info("test");
 		return INDEX;
 	}
 }

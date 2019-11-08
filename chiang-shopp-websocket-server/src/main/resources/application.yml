@@ -1,0 +1,67 @@
+server:
+  port: 8011
+#  context-path: /member
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    #instance-id: microservicecloud-dept8001
+    instance-id: chiang-shopp-websocket-server
+    prefer-ip-address: true     #访问路径可以显示IP地址     
+spring:
+  application:
+    name: member
+  redis:
+    host: 127.0.0.1
+    #password: 123456
+    port: 6379
+    pool:
+      max-idle: 100
+      min-idle: 1
+      max-active: 1000
+      max-wait: -1      
+  #数据库连接信息
+  datasource:
+        name: test
+        url: jdbc:mysql://127.0.0.1:3306/shopping-member?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&characterEncoding=UTF-8&useSSL=true 
+        username: root
+        password: success
+        # 使用druid数据源
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        filters: stat
+        maxActive: 20
+        initialSize: 1
+        maxWait: 60000
+        minIdle: 1
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: select 'x'
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxOpenPreparedStatements: 20
+##activemq连接信息
+  activemq:
+    broker-url: tcp://localhost:61616
+    in-memory: true
+    pool:
+      enabled: false
+########################################
+
+MESSAGESQUEUE: message_queue
+
+##队列      
+messages:
+  queue: messages_queue
+
+#Eureka中的显示信息
+info: 
+  app.name: chiang-shopp-websocket-client
+  company.name: www.chiang.com
+  build.artifactId: $project.artifactId$
+  build.version: $project.version$
+
+

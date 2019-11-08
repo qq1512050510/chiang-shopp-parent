@@ -8,7 +8,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.chiang.api.service.TestExceptionService;
 import com.chiang.exception.UnauthenticatedException;
-
+/**
+ * 测试 Exception
+ * @author adp
+ *
+ */
 @RestController
 public class TestRestControllerAdviceImpl implements TestExceptionService {
 
