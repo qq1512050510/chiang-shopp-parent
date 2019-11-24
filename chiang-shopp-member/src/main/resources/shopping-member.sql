@@ -28,11 +28,12 @@ CREATE TABLE `mb_user` (
   `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '当前时间',
   `updated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '当前时间',
   `operid` bigint(20) DEFAULT NULL,
+  `openid` varchar(255) DEFAULT NULL COMMENT 'QQ授权',
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`) USING BTREE,
   UNIQUE KEY `phone` (`phone`) USING BTREE,
   UNIQUE KEY `email` (`email`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8 COMMENT='用户表';
+) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8 COMMENT='用户表';
 
 -- ----------------------------
 -- Records of mb_user

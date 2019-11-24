@@ -144,4 +144,21 @@ public class MemberServiceImpl extends BaseApiService implements MemberService {
 
 	}
 
+	@Override
+	public ResponseBase findByOpenIdUser(String openid) {
+		//1.验证参数
+		if(StringUtils.isEmpty(openid)) {
+			return setResultError("系统错误！");
+		}
+		//2.使用openid 查询数据库user表对应的数据信息
+		
+		//3.自动登录
+		return null;
+	}
+
+	@Override
+	public ResponseBase qqLogin(UserEntity user) {
+		return null;
+	}
+
 }
