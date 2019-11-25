@@ -26,6 +26,9 @@ public interface Constants {
 	//Integer HTTP_RES_CODE_500 = 500;
 	Integer HTTP_RES_CODE_500 = HttpStatus.INTERNAL_SERVER_ERROR.value();
 	
+	//未关联QQ账号
+	Integer HTTP_RES_CODE_201 = 201;
+	
 	String SMS_MAIL = "email";
 
 	String MSG_SMS = "email";

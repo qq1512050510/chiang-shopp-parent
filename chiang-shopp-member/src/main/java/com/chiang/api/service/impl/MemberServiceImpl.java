@@ -104,6 +104,11 @@ public class MemberServiceImpl extends BaseApiService implements MemberService {
 		String newPassword = MD5Util.MD5(password);
 		// 2、数据库查找账号密码是否正确
 		UserEntity userEntity = memberDao.login(username, newPassword);
+		return setLogin(userEntity);
+	}
+	
+	//通用代码封装
+	private ResponseBase setLogin(UserEntity userEntity) {
 		if (userEntity == null) {
 			return setResultError("账号或者密码不正确！");
 		}
@@ -151,13 +156,18 @@ public class MemberServiceImpl extends BaseApiService implements MemberService {
 			return setResultError("系统错误！");
 		}
 		//2.使用openid 查询数据库user表对应的数据信息
-		
+		UserEntity userEntity = memberDao.findByOpenIdUser(openid);
+		if(userEntity == null) {
+			return setResultError(Constants.HTTP_RES_CODE_201,"token无效或者已经过期！");
+		}
 		//3.自动登录
-		return null;
+		return setLogin(userEntity);
 	}
 
 	@Override
 	public ResponseBase qqLogin(UserEntity user) {
+		//1.验证参数
+		//2.
 		return null;
 	}
 
