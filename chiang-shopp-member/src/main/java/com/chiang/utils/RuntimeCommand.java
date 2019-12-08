@@ -25,6 +25,7 @@ public class RuntimeCommand {
 	public static void main(String[] args) {
 		//String cmd = "ipconfig";
 		String cmd = "ping -t www.baidu.com";
+		cmd.intern();
 		Future<String> future = es.submit(new SHCallable<String>(cmd));
 		String result = null;
 		try {
