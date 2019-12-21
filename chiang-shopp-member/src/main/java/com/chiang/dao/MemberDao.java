@@ -4,6 +4,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.chiang.entity.UserEntity;
 
@@ -20,12 +21,9 @@ public interface MemberDao {
 			+ "<if test='created!=null and created!=\"\"'>" + ",created" + "</if>"
 			+ "<if test='updated!=null and updated!=\"\"'>" + ",updated" + "</if>"
 			+ "<if test='openid!=null and openid!=\"\"'>" + ",openid" + "</if>"
-			+ ") VALUES (#{username},#{password},#{phone},#{email}" + 
-			"<if test='created!=null and created!=\"\"'>"+ ",#{created}" + "</if>" + 
-			"<if test='updated!=null and updated!=\"\"'>" + ",#{updated}" + "</if>" + 
-			"<if test='openid!=null and openid!=\"\"'>" + ",#{openid}" + "</if>" + 
-			");"
-			+ "</script>")
+			+ ") VALUES (#{username},#{password},#{phone},#{email}" + "<if test='created!=null and created!=\"\"'>"
+			+ ",#{created}" + "</if>" + "<if test='updated!=null and updated!=\"\"'>" + ",#{updated}" + "</if>"
+			+ "<if test='openid!=null and openid!=\"\"'>" + ",#{openid}" + "</if>" + ");" + "</script>")
 	Integer insertUser(UserEntity userEntity);
 
 	@Select("select id,username,password,phone,email,created,updated,openid from mb_user where username = #{username} and password = #{password}")
@@ -34,4 +32,6 @@ public interface MemberDao {
 	@Select("select id,username,password,phone,email,created,updated,openid from mb_user where openid = #{openid}")
 	UserEntity findByOpenIdUser(@Param("openid") String openid);
 
+	@Update("update mb_user set openid = #{openid} where id = #{userid}")
+	Integer updateByOpenIdUser(@Param("openid") String openid, @Param("userid") Integer userid);
 }

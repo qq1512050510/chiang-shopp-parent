@@ -11,19 +11,21 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
+
 /**
- * ExecutorService 
- * 线程运行超时限制
+ * ExecutorService 线程运行超时限制
+ * 
  * @author adp
  *
  */
 public class RuntimeCommand {
-	
-	private static long shExecuteTime = 5*1000;
-	public static ExecutorService es = Executors.newFixedThreadPool(1, new ThreadFactoryBuilder().setNameFormat("SHClient-%d").build());
+
+	private static long shExecuteTime = 5 * 1000;
+	public static ExecutorService es = Executors.newFixedThreadPool(1,
+			new ThreadFactoryBuilder().setNameFormat("SHClient-%d").build());
 
 	public static void main(String[] args) {
-		//String cmd = "ipconfig";
+		// String cmd = "ipconfig";
 		String cmd = "ping -t www.baidu.com";
 		cmd.intern();
 		Future<String> future = es.submit(new SHCallable<String>(cmd));
@@ -54,10 +56,10 @@ public class RuntimeCommand {
 			String line = "";
 			String runReturn = "";
 			StringBuffer stringBuffer = new StringBuffer();
-			while((line = br.readLine())!=null) {
-			//if ((line = br.readLine()) != null) {
+			while ((line = br.readLine()) != null) {
+				// if ((line = br.readLine()) != null) {
 				System.out.println(line);
-				stringBuffer.append(line+"\n");
+				stringBuffer.append(line + "\n");
 			}
 			if (!stringBuffer.toString().startsWith(mark)) {
 				rts = "error";
@@ -65,7 +67,7 @@ public class RuntimeCommand {
 			runReturn = stringBuffer.toString();
 			br.close();
 			process.destroy();
-			//return (V) rts;
+			// return (V) rts;
 			return (V) runReturn;
 		}
 

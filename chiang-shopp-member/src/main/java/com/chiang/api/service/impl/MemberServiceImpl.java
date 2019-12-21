@@ -29,7 +29,7 @@ import org.apache.commons.lang.StringUtils;
 
 @Slf4j
 @RestController
-//@RequestMapping("/member")
+// @RequestMapping("/member")
 public class MemberServiceImpl extends BaseApiService implements MemberService {
 
 	@Autowired
@@ -106,8 +106,8 @@ public class MemberServiceImpl extends BaseApiService implements MemberService {
 		UserEntity userEntity = memberDao.login(username, newPassword);
 		return setLogin(userEntity);
 	}
-	
-	//通用代码封装
+
+	// 通用代码封装
 	private ResponseBase setLogin(UserEntity userEntity) {
 		if (userEntity == null) {
 			return setResultError("账号或者密码不正确！");
@@ -125,10 +125,12 @@ public class MemberServiceImpl extends BaseApiService implements MemberService {
 	}
 
 	@Override
-	//public ResponseBase findUserByToken(@RequestParam(value = "token",required = false) String token) {
+	// public ResponseBase findUserByToken(@RequestParam(value = "token",required =
+	// false) String token) {
 	public ResponseBase findUserByToken(@RequestParam("token") String token) {
-	//public ResponseBase findUserByToken(@RequestParam(value="token")String token) {
-		log.info("token is :{}",token);
+		// public ResponseBase findUserByToken(@RequestParam(value="token")String token)
+		// {
+		log.info("token is :{}", token);
 		// 1、验证参数
 		if (StringUtils.isEmpty(token)) {
 			return setResultError("token不能为空");
@@ -151,24 +153,38 @@ public class MemberServiceImpl extends BaseApiService implements MemberService {
 
 	@Override
 	public ResponseBase findByOpenIdUser(String openid) {
-		//1.验证参数
-		if(StringUtils.isEmpty(openid)) {
+		// 1.验证参数
+		if (StringUtils.isEmpty(openid)) {
 			return setResultError("系统错误！");
 		}
-		//2.使用openid 查询数据库user表对应的数据信息
+		// 2.使用openid 查询数据库user表对应的数据信息
 		UserEntity userEntity = memberDao.findByOpenIdUser(openid);
-		if(userEntity == null) {
-			return setResultError(Constants.HTTP_RES_CODE_201,"token无效或者已经过期！");
+		if (userEntity == null) {
+			return setResultError(Constants.HTTP_RES_CODE_201, "token无效或者已经过期！");
 		}
-		//3.自动登录
+		// 3.自动登录
 		return setLogin(userEntity);
 	}
 
 	@Override
 	public ResponseBase qqLogin(UserEntity user) {
-		//1.验证参数
-		//2.
-		return null;
+		// 1.验证参数
+		String openid = user.getOpenid();
+		Integer userid = user.getId();
+		if (StringUtils.isEmpty(openid)) {
+			return setResultError("openid不能为空");
+		}
+		// 2.先进行账号登录
+		ResponseBase setLogin = setLogin(user);
+		if (setLogin.getRtnCode().equals(Constants.HTTP_RES_CODE_200)) {
+			return setLogin;
+		}
+		// 3.登录成功,数据库修改对应的openid
+		Integer updateByOpenIdUser = memberDao.updateByOpenIdUser(openid, userid);
+		if(updateByOpenIdUser<=0) {
+			return setResultError("QQ账号关联失败！");
+		}
+		return setLogin;
 	}
 
 }
