@@ -152,7 +152,7 @@ public class MemberServiceImpl extends BaseApiService implements MemberService {
 	}
 
 	@Override
-	public ResponseBase findByOpenIdUser(String openid) {
+	public ResponseBase findByOpenIdUser(@RequestParam("openid") String openid) {
 		// 1.验证参数
 		if (StringUtils.isEmpty(openid)) {
 			return setResultError("系统错误！");
@@ -160,14 +160,14 @@ public class MemberServiceImpl extends BaseApiService implements MemberService {
 		// 2.使用openid 查询数据库user表对应的数据信息
 		UserEntity userEntity = memberDao.findByOpenIdUser(openid);
 		if (userEntity == null) {
-			return setResultError(Constants.HTTP_RES_CODE_201, "token无效或者已经过期！");
+			return setResultError(Constants.HTTP_RES_CODE_201, "该openid没有关联！");
 		}
 		// 3.自动登录
 		return setLogin(userEntity);
 	}
 
 	@Override
-	public ResponseBase qqLogin(UserEntity user) {
+	public ResponseBase qqLogin(@RequestBody UserEntity user) {
 		// 1.验证参数
 		String openid = user.getOpenid();
 		Integer userid = user.getId();
@@ -175,7 +175,7 @@ public class MemberServiceImpl extends BaseApiService implements MemberService {
 			return setResultError("openid不能为空");
 		}
 		// 2.先进行账号登录
-		ResponseBase setLogin = setLogin(user);
+		ResponseBase setLogin =  login(user);
 		if (setLogin.getRtnCode().equals(Constants.HTTP_RES_CODE_200)) {
 			return setLogin;
 		}
