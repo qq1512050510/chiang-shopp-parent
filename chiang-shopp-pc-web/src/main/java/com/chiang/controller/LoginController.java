@@ -45,7 +45,7 @@ public class LoginController {
 			request.setAttribute("error", "账号或者密码错误！");
 			return LOGIN;
 		}
-		LinkedHashMap loginData = (LinkedHashMap) loginBase.getObj();
+		LinkedHashMap loginData = (LinkedHashMap) loginBase.getData();
 		String memberToken = (String)loginData.get("memberToken");
 		if(StringUtils.isEmpty(memberToken)) {
 			request.setAttribute("error", "会话已经失效！");

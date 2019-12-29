@@ -24,6 +24,8 @@ import com.chiang.utils.TokenUtil;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.LinkedHashMap;
+
 import org.apache.activemq.command.ActiveMQQueue;
 import org.apache.commons.lang.StringUtils;
 
@@ -170,18 +172,28 @@ public class MemberServiceImpl extends BaseApiService implements MemberService {
 	public ResponseBase qqLogin(@RequestBody UserEntity user) {
 		// 1.验证参数
 		String openid = user.getOpenid();
-		Integer userid = user.getId();
 		if (StringUtils.isEmpty(openid)) {
 			return setResultError("openid不能为空");
 		}
 		// 2.先进行账号登录
-		ResponseBase setLogin =  login(user);
-		if (setLogin.getRtnCode().equals(Constants.HTTP_RES_CODE_200)) {
+		ResponseBase setLogin = login(user);
+		if (!setLogin.getRtnCode().equals(Constants.HTTP_RES_CODE_200)) {
 			return setLogin;
 		}
-		// 3.登录成功,数据库修改对应的openid
-		Integer updateByOpenIdUser = memberDao.updateByOpenIdUser(openid, userid);
-		if(updateByOpenIdUser<=0) {
+		// 3.自动登录 登录成功,数据库修改对应的openid
+		// LinkedHashMap dataLogin = (LinkedHashMap)setLogin.getData();
+		JSONObject dataLogin = (JSONObject) setLogin.getData();
+		// 4.获取token信息
+		String memberToken = (String) dataLogin.get("memberToken");
+		ResponseBase userToken = findUserByToken(memberToken);
+		if(!userToken.getRtnCode().equals(Constants.HTTP_RES_CODE_200)) {
+			return userToken;
+		}
+		UserEntity userEntity = (UserEntity) userToken.getData();
+		// 5.修改用户openId
+		Integer userId = userEntity.getId();
+		Integer updateByOpenIdUser = memberDao.updateByOpenIdUser(openid, userId);
+		if (updateByOpenIdUser <= 0) {
 			return setResultError("QQ账号关联失败！");
 		}
 		return setLogin;

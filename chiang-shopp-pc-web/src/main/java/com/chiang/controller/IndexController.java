@@ -41,7 +41,7 @@ public class IndexController {
 		if(!StringUtils.isEmpty(token)) {
 			ResponseBase responseBase = memberServiceFeign.findUserByToken(token);
 			if(responseBase.getRtnCode().equals(Constants.HTTP_RES_CODE_200)) {
-				LinkedHashMap userData = (LinkedHashMap) responseBase.getObj();
+				LinkedHashMap userData = (LinkedHashMap) responseBase.getData();
 				String username = (String) userData.get("userName");
 				request.setAttribute("username", username);
 			}
