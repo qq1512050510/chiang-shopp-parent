@@ -36,7 +36,8 @@ public class StorageTypeFactory implements ApplicationContextAware {
 	@Override
 	public void setApplicationContext(ApplicationContext appCT) throws BeansException {
 		applicationContext = appCT;
-		//ApplicationContext ctx=new ClassPathXmlApplicationContext("com/herman/ss/config/applicationContext2.xml");
+		// ApplicationContext ctx=new
+		// ClassPathXmlApplicationContext("com/herman/ss/config/applicationContext2.xml");
 		// 获取 Spring容器中所有 BaseService类型的类
 		storageTypeEnumFileServiceMap = appCT.getBeansOfType(BaseService.class);
 		log.info("启动获取的BaseService的Map{}", storageTypeEnumFileServiceMap);
@@ -64,6 +65,5 @@ public class StorageTypeFactory implements ApplicationContextAware {
 	public static ApplicationContext getApplicationContext() {
 		return applicationContext;
 	}
-	
 
 }
