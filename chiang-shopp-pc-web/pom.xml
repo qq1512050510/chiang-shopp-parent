@@ -27,6 +27,12 @@
 			<artifactId>chiang-shopp-api-member</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		<!-- QQ SDK -->
+		<dependency>
+			<groupId>net.gplatform</groupId>
+			<artifactId>Sdk4J</artifactId>
+			<version>2.0</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
