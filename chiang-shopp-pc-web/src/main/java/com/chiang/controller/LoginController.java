@@ -16,6 +16,8 @@ import com.chiang.constant.Constants;
 import com.chiang.entity.UserEntity;
 import com.chiang.feign.MemberServiceFeign;
 import com.chiang.utils.CookieUtil;
+import com.qq.connect.QQConnectException;
+import com.qq.connect.oauth.Oauth;
 
 
 @Controller
@@ -36,6 +38,7 @@ public class LoginController {
 		return LOGIN;
 	}
 	//登录请求具体提交实现
+	@SuppressWarnings("rawtypes")
 	@RequestMapping(value="/login",method={RequestMethod.POST})
 	public String loginPost(UserEntity userEntity,HttpServletRequest request,HttpServletResponse response) {
 		//1、验证参数
@@ -55,8 +58,13 @@ public class LoginController {
 		CookieUtil.addCookie(response,Constants.COOKIE_MEMBER_TOKEN, memberToken, Constants.TOKEN_MEMBER_TIME.intValue());
 		return INDEX;
 	}
-	
-	
+	//生成QQ授权登录链接
+	@RequestMapping("/localQQLogin")
+	public String localQQLogin(HttpServletRequest request) throws QQConnectException {
+		//生成授权链接
+		String authorizedURL = new Oauth().getAuthorizeURL(request);
+		return "redirect:"+authorizedURL;
+	}
 	
 	
 	

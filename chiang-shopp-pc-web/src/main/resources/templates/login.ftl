@@ -92,7 +92,7 @@
 						<ul>
 							<li><a href="/plugin.html?mod=oauth&c=wx" class="wx">微信</a></li>
 
-							<li><a href="http://127.0.0.1/locaQQLogin" class="qq">QQ</a></li>
+							<li><a href="http://127.0.0.1/localQQLogin" class="qq">QQ</a></li>
 
 						</ul>
 
@@ -112,7 +112,6 @@
 					Copy@2017 <a href="http://www.yunec.cn/" target="_blank">云EC电商系统</a>
 					<a href="http://www.yunec.cn/" target="_blank">www.yunec.cn</a>&nbsp;All
 					Rights Reserved 粤ICP备16042138号-1
-				</p>
 				</p>
 			</div>
 		</div>
