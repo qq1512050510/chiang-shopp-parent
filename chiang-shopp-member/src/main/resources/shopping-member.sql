@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50721
 File Encoding         : 65001
 
-Date: 2019-09-28 23:42:22
+Date: 2020-02-25 12:16:16
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -38,11 +38,12 @@ CREATE TABLE `mb_user` (
 -- ----------------------------
 -- Records of mb_user
 -- ----------------------------
-INSERT INTO `mb_user` VALUES ('37', 'yushengjun3', 'e10adc3949ba59abbe56e057f20f883e', '15527339674', 'aa1@a', '2015-04-06 17:03:55', '2015-04-06 17:03:55', null);
-INSERT INTO `mb_user` VALUES ('39', '644069', '098F6BCD4621D373CADE4E832627B4F6', null, 'yushengjun2018@163.com', '2018-03-14 00:00:00', '2018-03-14 00:00:00', null);
-INSERT INTO `mb_user` VALUES ('54', 'ttt123', 'E10ADC3949BA59ABBE56E057F20F883E', null, '765819328@qq.com', '2019-09-28 23:28:18', '2019-09-28 23:28:18', null);
-INSERT INTO `mb_user` VALUES ('55', 'abc123', 'E10ADC3949BA59ABBE56E057F20F883E', null, 'abc110110123@126.com', '2019-09-28 23:32:46', '2019-09-28 23:32:46', null);
-INSERT INTO `mb_user` VALUES ('56', 'tt1512', 'E10ADC3949BA59ABBE56E057F20F883E', null, '1512050510@qq.com', '2019-09-28 23:36:06', '2019-09-28 23:36:06', null);
+INSERT INTO `mb_user` VALUES ('37', 'yushengjun3', 'e10adc3949ba59abbe56e057f20f883e', '15527339674', 'aa1@a', '2019-12-29 20:45:07', '2015-04-06 17:03:55', null, '123451111');
+INSERT INTO `mb_user` VALUES ('39', '644069', '098F6BCD4621D373CADE4E832627B4F6', null, 'yushengjun2018@163.com', '2018-03-14 00:00:00', '2018-03-14 00:00:00', null, null);
+INSERT INTO `mb_user` VALUES ('54', 'ttt123', 'E10ADC3949BA59ABBE56E057F20F883E', null, '765819328@qq.com', '2019-09-28 23:28:18', '2019-09-28 23:28:18', null, null);
+INSERT INTO `mb_user` VALUES ('55', 'abc123', 'E10ADC3949BA59ABBE56E057F20F883E', null, 'abc110110123@126.com', '2019-09-28 23:32:46', '2019-09-28 23:32:46', null, null);
+INSERT INTO `mb_user` VALUES ('56', 'tt1512', 'E10ADC3949BA59ABBE56E057F20F883E', null, '1512050510@qq.com', '2019-09-28 23:36:06', '2019-09-28 23:36:06', null, null);
+INSERT INTO `mb_user` VALUES ('58', 'admin', 'DAF391B4650CFA08739B768657A41C9A', null, 'admin@126.com', '2019-10-07 14:05:19', '2019-10-07 14:05:19', null, null);
 
 -- ----------------------------
 -- Table structure for qrtz_blob_triggers
