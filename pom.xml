@@ -190,5 +190,6 @@
 		<module>chiang-shopp-pc-web</module>
 		<module>chiang-shopp-websocket-server</module>
 		<module>chiang-shopp-websocket-client</module>
+		<module>chiang-shopp-graylog</module>
 	</modules>
 </project>
