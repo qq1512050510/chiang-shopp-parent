@@ -34,6 +34,8 @@ public class LoginController {
 	// private static final String INDEX = "index";
 	// 重定向
 	private static final String INDEX = "redirect:/";
+	
+	private static final String ERROR = "error";
 
 	private static final String qqrelation = "qqrelation";
 
@@ -64,7 +66,7 @@ public class LoginController {
 		setCookie(memberToken, response);
 		return INDEX;
 	}
-	
+
 	public void setCookie(String memberToken, HttpServletResponse response) {
 		CookieUtil.addCookie(response, Constants.COOKIE_MEMBER_TOKEN, memberToken,
 				Constants.TOKEN_MEMBER_TIME.intValue());
@@ -79,7 +81,9 @@ public class LoginController {
 		return INDEX + authorizedURL;
 	}
 
-	public String qqLoginCallback(HttpServletRequest request,HttpSession httpSession) throws QQConnectException {
+	@RequestMapping("/qqLoginCallback")
+	public String qqLoginCallback(HttpServletRequest request, HttpServletResponse response, HttpSession httpSession)
+			throws QQConnectException {
 		// 1、获取授权码 Code
 		// 2、使用授权码 Code获取accessToken
 		AccessToken accessTokenOj = new Oauth().getAccessTokenByRequest(request);
@@ -95,17 +99,45 @@ public class LoginController {
 		// 3、使用accessToken获取openid
 		OpenID openidOj = new OpenID(accessToken);
 		String userOpenId = openidOj.getUserOpenID();
-		// 4 调用会员接口 使用userOpenId 查找是否已经关联过账号
+		// 4、 调用会员接口 使用userOpenId 查找是否已经关联过账号
 		ResponseBase openUserBase = memberServiceFeign.findByOpenIdUser(userOpenId);
 		if (openUserBase.getRtnCode().equals(Constants.HTTP_RES_CODE_201)) {
-			// 5 如果没有关联账号，跳转到关联账号页面
+			// 5、 如果没有关联账号，跳转到关联账号页面
 			httpSession.setAttribute("qqOpenid", userOpenId);
 			return qqrelation;
 		}
-		//6、已经绑定账号 自动登录 将用户token信息存放到cookie中
+		// 6、已经绑定账号 自动登录 将用户token信息存放到cookie中
 		LinkedHashMap dataTokenMap = (LinkedHashMap) openUserBase.getData();
-		//setCookie(memberToken, response);
-		return null;
+		String memberToken = (String) dataTokenMap.get("memberToken");
+		setCookie(memberToken, response);
+		return INDEX;
+	}
+	// qq授权关联页面 已有账号
+	@SuppressWarnings("rawtypes")
+	@RequestMapping(value = "/qqRelation", method = { RequestMethod.POST })
+	public String qqRelation(UserEntity userEntity, HttpServletRequest request, HttpServletResponse response,HttpSession session) {
+		// 1、获取openid
+		String qqOpenid = (String) session.getAttribute("qqOpenid");
+		if(StringUtils.isEmpty(qqOpenid)) {
+			request.setAttribute("error", "没有获取openid");
+			return ERROR;
+			
+		}
+		// 2、调用登录接口，获取token的信息
+		ResponseBase loginBase = memberServiceFeign.qqLogin(userEntity);
+		if (!loginBase.getRtnCode().equals(Constants.HTTP_RES_CODE_200)) {
+			request.setAttribute("error", "账号或者密码错误！");
+			return LOGIN;
+		}
+		LinkedHashMap loginData = (LinkedHashMap) loginBase.getData();
+		String memberToken = (String) loginData.get("memberToken");
+		if (StringUtils.isEmpty(memberToken)) {
+			request.setAttribute("error", "会话已经失效！");
+			return LOGIN;
+		}
+		// 3、将token信息存放到cookie里面 cookie的token尽量少一天
+		setCookie(memberToken, response);
+		return INDEX;
 	}
 
 }
