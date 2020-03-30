@@ -124,6 +124,7 @@ public class LoginController {
 			
 		}
 		// 2、调用登录接口，获取token的信息
+		userEntity.setOpenid(qqOpenid);
 		ResponseBase loginBase = memberServiceFeign.qqLogin(userEntity);
 		if (!loginBase.getRtnCode().equals(Constants.HTTP_RES_CODE_200)) {
 			request.setAttribute("error", "账号或者密码错误！");
