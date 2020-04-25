@@ -12,3 +12,6 @@ member port:8762
 eureka-server port:8761
 WebSocket-server port:8011
 WebSocket-client port:8012
+
+最新maven打包3.6.3有问题，
+maven使用3.3.9
