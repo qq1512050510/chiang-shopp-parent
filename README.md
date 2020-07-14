@@ -15,3 +15,7 @@ WebSocket-client port:8012
 
 最新maven打包3.6.3有问题，
 maven使用3.3.9
+
+mvn install -P dev
+mvn install -P prod
+mvn install -P test

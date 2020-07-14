@@ -9,12 +9,13 @@
 	</parent>
 	<artifactId>chiang-shopp-eurekaserver</artifactId>
 	<build>
+		<finalName>${project.artifactId}</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<source>1.8</source>
+					<!--<source>1.8</source>
 					<target>1.8</target>
 					<archive>
 						<manifest>
@@ -22,7 +23,7 @@
 							<addClasspath>true</addClasspath>
 							<classpathPrefix>lib/</classpathPrefix>
 						</manifest>
-					</archive>
+					</archive>-->
 				</configuration>
 				<executions>
 					<execution>
@@ -34,4 +35,30 @@
 			</plugin>
 		</plugins>
 	</build>
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<properties>
+				<activateProperties>dev</activateProperties>
+			</properties>
+			<dependencies>
+			</dependencies>
+		</profile>
+		<profile>
+			<id>prod</id>
+			<properties>
+				<activateProperties>prod</activateProperties>
+			</properties>
+			<dependencies>
+			</dependencies>
+		</profile>
+		<profile>
+			<id>test</id>
+			<properties>
+				<activateProperties>test</activateProperties>
+			</properties>
+			<dependencies>
+			</dependencies>
+		</profile>
+	</profiles>
 </project>
